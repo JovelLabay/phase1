@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import TheForm from "./Form";
+import TheModal from "./Modal";
 
 export default function App() {
   // URL
@@ -25,13 +26,7 @@ export default function App() {
   }, []);
 
   // TABLE TITLE
-  const tableTitle = [
-    "ID",
-    "First Name",
-    "Last Name",
-    "Date Created",
-    "Time Created",
-  ];
+  const tableTitle = ["Index", "First Name", "Last Name"];
 
   // CREATE FUNCTION
   const create = async (e) => {
@@ -51,11 +46,6 @@ export default function App() {
 
       setbtn("Submitting");
 
-      // APPLICABLE BUT ONLY TO UPDATE THE DOM
-      // setList((prevList) => {
-      //   return [...prevList, data];
-      // });
-
       // THIS WILL ONLY BE INVOKED IF UPON SUBMISSION IS SUCCESSFULL
       fetch(url)
         .then((response) => response.json())
@@ -71,8 +61,36 @@ export default function App() {
     }
   };
 
+  // ITEM DETAILS
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+  const [id, setid] = useState("");
+  const [firstname, setfname] = useState("");
+  const [lastname, setlname] = useState("");
+  const [date, setdate] = useState("");
+  const [time, settime] = useState("");
+
+  const itemDetails = (data) => {
+    setShow(true);
+    setid(data.id);
+    setfname(data.fName);
+    setlname(data.lName);
+    setdate(data.dateAt);
+    settime(data.timeAt);
+  };
+
   // TO DESTRUCTURE THE IMPORTED PROPERTIES
   const props = { Fname, setFname, Lname, setLname, create, btn };
+  const props2 = {
+    id,
+    firstname,
+    lastname,
+    date,
+    time,
+    show,
+    handleClose,
+  };
 
   return (
     <>
@@ -98,22 +116,27 @@ export default function App() {
               <tbody>
                 {list.map((data, index) => {
                   return (
-                    <tr key={index}>
-                      <td>{data.id}</td>
-                      <td>{data.fName}</td>
-                      <td>{data.lName}</td>
-                      <td>{data.dateAt}</td>
-                      <td>{data.timeAt}</td>
+                    <tr
+                      className="itemDetail"
+                      key={index}
+                      onClick={() => itemDetails(data)}
+                    >
+                      <th>{index}</th>
+                      <th>{data.fName}</th>
+                      <th>{data.lName}</th>
                     </tr>
                   );
                 })}
               </tbody>
             </Table>
           </div>
-          {/* FORM */}
-          <TheForm {...props} />
         </div>
+        {/* FORM */}
+        <TheForm {...props} />
       </div>
+
+      {/* MODAL */}
+      <TheModal {...props2} />
     </>
   );
 }

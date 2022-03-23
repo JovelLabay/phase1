@@ -23,7 +23,7 @@ export default function TheForm({
 
       {/* MODAL */}
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="form_header">
           <Modal.Title>Add list to the table</Modal.Title>
         </Modal.Header>
         <Modal.Body>

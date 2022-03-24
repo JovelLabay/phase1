@@ -26,7 +26,7 @@ export default function App() {
   }, []);
 
   // TABLE TITLE
-  const tableTitle = ["Index", "First Name", "Last Name"];
+  const tableTitle = ["Index", "Full Name", "Date", "Time"];
 
   // CREATE FUNCTION
   const create = async (e) => {
@@ -115,6 +115,15 @@ export default function App() {
               {/* TABLE DATA */}
               <tbody>
                 {list.map((data, index) => {
+                  const fullname = `${data.fName} ${data.lName}`;
+
+                  // THIS CAN BE REFACTOR TO ONE LINE ONLY USING ARRAY METHODS BELOW
+                  // const lolo = fullname.split("");
+                  // let kiki = "";
+                  // lolo.map((dodo) => {
+                  //   return (kiki += dodo + " ");
+                  // });
+
                   return (
                     <tr
                       className="itemDetail"
@@ -122,8 +131,9 @@ export default function App() {
                       onClick={() => itemDetails(data)}
                     >
                       <th>{index}</th>
-                      <th>{data.fName}</th>
-                      <th>{data.lName}</th>
+                      <th>{fullname.split("").join(" ")}</th>
+                      <th>{data.dateAt}</th>
+                      <th>{data.timeAt}</th>
                     </tr>
                   );
                 })}

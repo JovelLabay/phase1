@@ -7,7 +7,7 @@
 }
 
 .App {
-  width: 700px;
+  width: 850px;
   margin: 0 auto;
 }
 
@@ -52,7 +52,7 @@
 .table thead tr td {
   font-weight: bolder;
   color: rgb(255, 254, 254);
-  text-align: center;
+  /* text-align: center; */
 }
 .table tbody tr td {
   font-weight: bold;

@@ -22,7 +22,7 @@ export default function App() {
     fetch(url)
       .then((response) => response.json())
       .then((data) => setList(data))
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err.message));
   }, []);
 
   // TABLE TITLE
